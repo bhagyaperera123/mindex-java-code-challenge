@@ -26,16 +26,16 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
     public ReportingStructure create(Employee employee) {
         LOGGER.debug("Creating reporting structure for employee [{}]", employee);
 
-        return new ReportingStructure(employee, getReports(employee));
+        return new ReportingStructure(employee, getEmployeeReportsCount(employee));
     }
 
-    private int getReports(Employee employee){
+    private int getEmployeeReportsCount(Employee employee){
         List<Employee> reports = employee.getDirectReports();
         int sum = reports.size();
 
-        for (Employee emp : reports) { //Interate reports list
+        for (Employee emp : reports) { //Iterate reports list
             if (emp.getEmployeeId() != null) { // check null
-                //Retrive employee from the DB using Employee ID
+                //Retrieve employee from the DB using Employee ID
                 Employee employeeSearched = employeeService.read(emp.getEmployeeId());
                 //check employee DirectReports are not null
                 if(employeeSearched.getDirectReports() != null){
