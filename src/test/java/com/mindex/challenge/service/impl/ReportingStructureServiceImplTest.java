@@ -62,10 +62,14 @@ public class ReportingStructureServiceImplTest {
 
         member.setDirectReports(employees);
 
+        //create memberTwo
         restTemplate.postForEntity(employeeUrl, memberTwo, Employee.class).getBody();
+        //Create memberThree
         restTemplate.postForEntity(employeeUrl, memberThree, Employee.class).getBody();
+        //Create member with memberTwo and memberThree reference
         Employee createdEmployee = restTemplate.postForEntity(employeeUrl, member, Employee.class).getBody();
 
+        // Read checks
         ReportingStructure reports = restTemplate.getForEntity(reportingStructureUrl, ReportingStructure.class,
                 createdEmployee.getEmployeeId()).getBody();
 

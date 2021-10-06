@@ -33,10 +33,13 @@ public class ReportingStructureServiceImpl implements ReportingStructureService 
         List<Employee> reports = employee.getDirectReports();
         int sum = reports.size();
 
-        for (Employee emp : reports) {
-            if (emp.getEmployeeId() != null) {
+        for (Employee emp : reports) { //Interate reports list
+            if (emp.getEmployeeId() != null) { // check null
+                //Retrive employee from the DB using Employee ID
                 Employee employeeSearched = employeeService.read(emp.getEmployeeId());
-                if(employeeSearched.getDirectReports() !=null){
+                //check employee DirectReports are not null
+                if(employeeSearched.getDirectReports() != null){
+                    //assign report counts
                     sum = sum + employeeSearched.getDirectReports().size();
                 }
             }
